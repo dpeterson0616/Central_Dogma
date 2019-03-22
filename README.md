@@ -1,31 +1,14 @@
-#Transcribes and Translates Parsed sequences
-#adds them to new variable seq
-#prints the protein sequence (seq)
-
-seq = ""
-
-fasta = open('sample2.txt', "r")
-
-seq_ids = []
-seqs = []
-
-n = -1
-
-print("\n","Parsing...","\n")
-print("\n","Translating...","\n")
-print("\n","Transcribing...","\n")
-
-for line in fasta.readlines():
-
-    if line[0] == '>':
-        curr_seq_id = line[1:]
-        seq_ids.append(curr_seq_id)
-        seqs.append('')
-        n += 1
-    else:
-        seqs[n] += line
-        rna = Transcribe_DNA(line)
-        protein = Translate(rna)
-        seq += (protein)
-
-        continue
+for seq_id, seq in zip(seq_ids, seqs):
+    print("**Protein Sequence for:", seq_id)
+    rna = Transcribe_DNA(seq)
+    protein = Translate(rna)
+    hydro_matrix = Hydrophobicity(protein)
+    hydro_vals = Matrix(hydro_matrix)
+    average = Average(hydro_vals)
+    plt.plot(average)
+    plt.ylabel("Hydrophobicity")
+    plt.show()
+    print("\t", protein, "\n")
+    print("**Hydrophobicity data for:", seq_id)
+    print("\t","Average interface scale value:", average, "\n")
+    print("Matrix:", "\n","\t", hydro_vals, "\n")
