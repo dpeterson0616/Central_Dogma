@@ -105,8 +105,6 @@ for line in fasta.readlines():
         protein = Translate(rna)
         seq += (protein)
 
-        continue
-
 for seq_id, seq in zip(seq_ids, seqs):
     print("Protein Sequence for", seq_id)
     rna = Transcribe_DNA(seq)
